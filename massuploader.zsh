@@ -28,14 +28,14 @@ for file in $DIRECTORY/*; do
 if [ -d "$file" ]; then
 /bin/cp $HOME/Documentos/uploaded_for_free_culture.txt "$file/"
 /bin/cp $HOME/Documentos/subido_para_la_cultura_libre.txt "$file/"
-filemon=`echo $file|sed "s=${DIRECTORY}/=="'`
-/bin/echo $filemon
+filemon=`echo $file|sed "s=${DIRECTORY}/=="`
+#~ /bin/echo $filemon
 /usr/bin/zip -rj$LEVEL "/tmp/uploads/$filemon.zip" "$file"
-/bin/echo "$filemon"  >> /tmp/upload.txt
+/bin/echo "$filemon:"  >> /tmp/upload.txt
 /usr/bin/plowup -v0 -a $USER:$PASSWORD -d "$filemon" "/tmp/uploads/$filemon.zip" megaupload >> /tmp/upload.txt
 /bin/echo '------'  >> /tmp/upload.txt
 #~ /bin/rm filemon
-/bin/less /tmp/upload.txt
+#~ /bin/less /tmp/upload.txt
 /bin/echo 'The list of links has been written to /tmp/upload.txt'
 #~ rm /tmp/upload.txt
 fi
