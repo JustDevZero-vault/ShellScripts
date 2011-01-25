@@ -39,3 +39,4 @@ filemon=`echo $file|sed 's/\/home\/daniel\/Música\/Metallica\///'`
 #rm /tmp/upload.txt
 fi
 done
+exit 0
