@@ -31,9 +31,11 @@ if [ -d "$file" ]; then
 filemon=`echo $file|sed 's/\/home\/daniel\/Música\/Metallica\///'`
 /bin/echo $filemon
 /usr/bin/zip -rj$LEVEL "/tmp/uploads/$filemon.zip" "$file"
+/bin/echo "$filemon"  >> /tmp/upload.txt
 /usr/bin/plowup -v0 -a $USER:$PASSWORD -d "$filemon" "/tmp/uploads/$filemon.zip" megaupload >> /tmp/upload.txt
+/bin/echo '------'  >> /tmp/upload.txt
 /bin/rm filemon
 /bin/less /tmp/upload.txt
-rm /tmp/upload.txt
+#rm /tmp/upload.txt
 fi
 done
