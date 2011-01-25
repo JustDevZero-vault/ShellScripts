@@ -9,7 +9,7 @@ PASSWORD=''
 /bin/echo "I have not detected any specified folder, i will upload automatically your files located on your current folder"
 else;
 DIRECTORY=$1
-/bin/cd $DIRECTORY
+cd $DIRECTORY
 fi
 if [ -d "$TEMPORAL" ]; then
 /bin/echo 'The temporal directory for uploads already exist.'
