@@ -18,6 +18,7 @@
 
 
 LEVEL=9
+function rmspace { for a in ./**/*\ *(Dod); do mv $a ${a:h}/${a:t:gs/ /_}; done }
 TEMPORAL="/tmp/uploads/"
 if  [ "$1" =  "" ]; then
     DIRECTORY=`pwd`
@@ -46,14 +47,23 @@ for file in $DIRECTORY/*; do
         /bin/cp $HOME/Documentos/uploaded_for_free_culture.txt "$file/"
         /bin/cp $HOME/Documentos/subido_para_la_cultura_libre.txt "$file/"
         filemon=`echo $file|sed "s=${DIRECTORY}/=="`
-        #~ /bin/echo $filemon
+        file_name=`echo $file|sed "s=${DIRECTORY}/=="|sed "s=^[ \t]*='=;s/[ \t]*$/'/"`
         /usr/bin/zip -rj$LEVEL "/tmp/uploads/$filemon.zip" "$file"
-        /bin/echo "$filemon:"  >> /tmp/upload.txt
-        /usr/bin/plowup -v0 -a $USER:$PASSWORD -d "$filemon" "/tmp/uploads/$filemon.zip" megaupload >> /tmp/upload.txt
-        /bin/echo '------'  >> /tmp/upload.txt
         #~ /bin/rm filemon
     fi
 done
+
+cd $TEMPORAL
+rmspace
+for file in $TEMPORAL*; do
+    if [ -f "$file" ]; then
+        filemon=`echo $file|sed "s=${TEMPORAL}=="`
+        file_name=`echo $file|sed "s=${TEMPORAL}=="|sed "s=^[ \t]*='=;s/[ \t]*$/'/"`
+        /bin/echo "$filemon:"  >> /tmp/upload.txt
+        /usr/bin/plowup -a $USER:$PASSWORD -d $file_name "$filemon" megaupload  >> /tmp/upload.txt
+        /bin/echo '------'  >> /tmp/upload.txt
+    fi
+ done    
 /bin/echo 'The list of links has been written to /tmp/upload.txt'
 #~ /bin/less /tmp/upload.txt
 #~ rm /tmp/upload.txt
